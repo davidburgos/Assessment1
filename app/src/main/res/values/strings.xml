@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PicoyPlaca</string>
+    <string name="app_name">Pico y Placa</string>
     <string name="action_settings">Settings</string>
+    <string name="text_view_title_placa">Placa:</string>
+    <string name="text_view_title_type">Category:</string>
+    <string name="text_view_title_hour">Schedule:</string>
 
 </resources>
