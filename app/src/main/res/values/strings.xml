@@ -6,5 +6,6 @@
     <string name="text_view_title_placa">Placa:</string>
     <string name="text_view_title_type">Category:</string>
     <string name="text_view_title_hour">Schedule:</string>
+    <string name="text_add_value">Add Vehicle</string>
 
 </resources>

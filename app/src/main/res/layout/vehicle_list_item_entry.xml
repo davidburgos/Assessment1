@@ -12,7 +12,11 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/image_view_type" />
+            android:id="@+id/image_view_type"
+            android:cropToPadding="false"
+            android:adjustViewBounds="true"
+            android:maxWidth="50dp"
+            android:maxHeight="50dp" />
     </LinearLayout>
 
     <LinearLayout

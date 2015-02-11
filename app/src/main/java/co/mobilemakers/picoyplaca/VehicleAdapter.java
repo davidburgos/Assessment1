@@ -49,6 +49,7 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
         viewHolder.textViewHour.setText();TODO: calculate this values to set this views
         viewHolder.textViewMessage.setText();*/
         viewHolder.ImageViewType.setImageResource(VehicleList.get(position).getImageId());
+        viewHolder.ImageViewType.setId(VehicleList.get(position).getId());
     }
 
     private View reuseOrGenerateRowView(View convertView, ViewGroup parent) {
