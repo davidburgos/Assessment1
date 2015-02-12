@@ -1,5 +1,6 @@
 package co.mobilemakers.picoyplaca;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -24,7 +25,7 @@ import java.util.List;
 
 public class mainFragment extends ListFragment {
 
-    private static final int CREATE_REQUEST = 314;
+    public static final int CREATE_REQUEST = 314;
     private DatabaseHelper mDBHelper = null;
     SharedPreferences mSharedpreferences;
     VehicleAdapter mAdapter;
@@ -73,6 +74,26 @@ public class mainFragment extends ListFragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(CREATE_REQUEST == requestCode){
+            switch (resultCode){
+                case Activity.RESULT_OK:
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.setPlaca(data.getStringExtra(CreateVehicle.FIELD_PLACA));
+                    vehicle.setType_vehicle(data.getIntExtra(CreateVehicle.FIELD_TYPE,1));
+                    getDBHelper().saveVehicle(vehicle);
+                    mEntries.add(vehicle);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                case Activity.RESULT_CANCELED:
+                    break;
+            }
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -93,13 +114,6 @@ public class mainFragment extends ListFragment {
             case R.id.action_add_vehicle:
                 Intent createVehicle = new Intent(getActivity(), CreateVehicle.class);
                 startActivityForResult(createVehicle, CREATE_REQUEST);
-             /*   Vehicle vehicle =new Vehicle();
-                vehicle.setPlaca("CLA-024");
-                vehicle.setType_vehicle(Vehicle.Type_vehicle.MOTORCYCLE);
-                vehicle.setPermission(false);
-                getDBHelper().saveVehicle(vehicle);
-                mEntries.add(vehicle);*/
-                mAdapter.notifyDataSetChanged();
                 handled = true;
                 break;
         }

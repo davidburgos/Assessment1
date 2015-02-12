@@ -14,7 +14,14 @@ public class Vehicle {
     public final static String PERMISSION = "permission";
 
     public enum Type_vehicle{
-        CAR, TAXI, MOTORCYCLE, ELECTRIC
+        CAR(1), TAXI(2), MOTORCYCLE(3), ELECTRIC(4);
+        private int value;
+        private Type_vehicle(int value){
+            this.value = value;
+        }
+        public int getValue(){
+            return this.value;
+        }
     }
 
     public enum Day {
@@ -38,12 +45,6 @@ public class Vehicle {
         }
     }
 
-    /*private enum monday{0,};
-    private enum tuesday{}
-    private enum Wednesday{}
-    private enum Thursday{}
-    private enum Friday{}
-*/
     @DatabaseField(generatedId = true,
                     columnName = ID)    private int _id;
     @DatabaseField(columnName  = PLACA) private String Placa;
@@ -53,17 +54,33 @@ public class Vehicle {
     @DatabaseField(columnName = PERMISSION) private Boolean permission;
 
     public String getPlaca() {
-        return Placa;
+        return Placa.trim();
     }
 
     public void setPlaca(String placa) {
-        Placa = placa;
+        Placa = placa.trim();
     }
 
     public String getType_vehicle() {
         return type_vehicle.toString();
     }
 
+    public void setType_vehicle(int type_vehicle) {
+        switch (type_vehicle){
+            case 1:
+                this.type_vehicle = Type_vehicle.CAR;
+                break;
+            case 2:
+                this.type_vehicle = Type_vehicle.TAXI;
+                break;
+            case 3:
+                this.type_vehicle = Type_vehicle.MOTORCYCLE;
+                break;
+            case 4:
+                this.type_vehicle = Type_vehicle.ELECTRIC;
+                break;
+        }
+    }
     public void setType_vehicle(Type_vehicle type_vehicle) {
         this.type_vehicle = type_vehicle;
     }
@@ -95,10 +112,6 @@ public class Vehicle {
         }
 
         return permission;
-    }
-
-    public void setPermission(Boolean permission) {
-        this.permission = permission;
     }
 
     public int getId() {

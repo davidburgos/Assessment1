@@ -1,5 +1,6 @@
 package co.mobilemakers.picoyplaca;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,8 +16,11 @@ import android.widget.EditText;
 
 public class CreateVehicle extends ActionBarActivity {
 
+    public static final String FIELD_PLACA = "_placa";
+    public static final String FIELD_TYPE  = "_type";
     private EditText mPlaca;
     private Button mType;
+    private int Type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,22 @@ public class CreateVehicle extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 showPopup(v);
+            }
+        });
+
+        mPlaca = (EditText)findViewById(R.id.edit_text_placa);
+
+        Button button = (Button)findViewById(R.id.button_create);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra(FIELD_PLACA,mPlaca.getText().toString());
+                intent.putExtra(FIELD_TYPE ,Type);
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+
             }
         });
     }
@@ -43,21 +63,26 @@ public class CreateVehicle extends ActionBarActivity {
                 {
                     case R.id.menu_car:
                         mType.setText(R.string.type_car);
+                        Type = Vehicle.Type_vehicle.CAR.getValue();
                         handled = true;
                         break;
                     case R.id.menu_electric_car:
                         mType.setText(R.string.type_electric_car);
+                        Type = Vehicle.Type_vehicle.ELECTRIC.getValue();
                         handled = true;
                         break;
                     case R.id.menu_taxi:
                         mType.setText(R.string.type_taxi);
+                        Type = Vehicle.Type_vehicle.TAXI.getValue();
                         handled = true;
                         break;
                     case R.id.menu_motorcycle:
                         mType.setText(R.string.type_motorcycle);
+                        Type = Vehicle.Type_vehicle.MOTORCYCLE.getValue();
                         handled = true;
                         break;
                     default:
+                        Type = Vehicle.Type_vehicle.CAR.getValue();
                         handled = false;
                 }
 

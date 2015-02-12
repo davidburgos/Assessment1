@@ -15,14 +15,14 @@
             android:id="@+id/image_view_type"
             android:cropToPadding="false"
             android:adjustViewBounds="false"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp" />
+            android:maxWidth="50dp"
+            android:maxHeight="50dp" />
     </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight="3">
 
         <LinearLayout

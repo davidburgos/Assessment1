@@ -22,5 +22,6 @@
     <string name="type_motorcycle">Motorcycle</string>
     <string name="type_taxi">Taxi</string>
     <string name="type_electric_car">Electric Car</string>
+    <string name="button_text_title_create">Create</string>
 
 </resources>
