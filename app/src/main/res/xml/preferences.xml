@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/category_cities_title">
+        <CheckBoxPreference
+            android:key="pref_auto_detect_city"
+            android:enabled="false"
+            android:title="@string/auto_detect_city_title"
+            android:summary="@string/auto_detect_city_summ"
+            android:defaultValue="false" />
+        <ListPreference
+            android:key="cities"
+            android:title="@string/pref_title_cities"
+            android:summary="@string/cities_summ"
+            android:dialogTitle="@string/pref_cities_dialog_title"
+            android:entries="@array/listentries"
+            android:entryValues="@array/listvalues"
+            android:defaultValue="@string/pref_city_default" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

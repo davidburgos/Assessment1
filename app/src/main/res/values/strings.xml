@@ -7,5 +7,20 @@
     <string name="text_view_title_type">Category:</string>
     <string name="text_view_title_hour">Schedule:</string>
     <string name="text_add_value">Add Vehicle</string>
+    <string name="auto_detect_city_title">Autodetect City</string>
+    <string name="auto_detect_city_summ">The system automatically set the city where you are.</string>
+    <string name="pref_title_cities">City</string>
+    <string name="pref_cities_dialog_title">Choose a City</string>
+    <string name="category_cities_title">Cities</string>
+    <string name="pref_city_default">Pereira</string>
+    <string name="cities_summ">Select the City where your vehicle is.</string>
+    <string name="text_view_format_title">Selected City: %s</string>
+    <string name="message_for_warning">Warning you could be punishment</string>
+    <string name="title_activity_create_vehicle">Create Vehicle</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="type_car">Car</string>
+    <string name="type_motorcycle">Motorcycle</string>
+    <string name="type_taxi">Taxi</string>
+    <string name="type_electric_car">Electric Car</string>
 
 </resources>

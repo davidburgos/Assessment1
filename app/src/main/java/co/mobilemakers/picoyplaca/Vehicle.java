@@ -3,6 +3,8 @@ package co.mobilemakers.picoyplaca;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Calendar;
+
 @DatabaseTable
 public class Vehicle {
 
@@ -15,6 +17,33 @@ public class Vehicle {
         CAR, TAXI, MOTORCYCLE, ELECTRIC
     }
 
+    public enum Day {
+          Monday(8, 9, 0, 1)
+        , Tuesday(2, 3, 4, 5)
+        , Wednesday(6, 7, 8, 9)
+        , Thursday(0, 1, 2, 3)
+        , Friday(4, 5, 6, 7);
+
+        private String value;
+
+        private Day(int val1, int val2, int val3, int val4) {
+            this.value = String.valueOf(val1) +
+                    String.valueOf(val2) +
+                    String.valueOf(val3) +
+                    String.valueOf(val4);
+        }
+
+        public Boolean hasPenalty(CharSequence placa) {
+            return value.contains(placa);
+        }
+    }
+
+    /*private enum monday{0,};
+    private enum tuesday{}
+    private enum Wednesday{}
+    private enum Thursday{}
+    private enum Friday{}
+*/
     @DatabaseField(generatedId = true,
                     columnName = ID)    private int _id;
     @DatabaseField(columnName  = PLACA) private String Placa;
@@ -40,6 +69,31 @@ public class Vehicle {
     }
 
     public Boolean getPermission() {
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(c.getTime());
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        String LastNumber = Placa.substring(Placa.length()-1);
+
+        switch (dayOfWeek){
+
+            case 2:
+                permission = Day.Monday.hasPenalty(LastNumber);
+                break;
+            case 3:
+                permission = Day.Tuesday.hasPenalty(LastNumber);
+                break;
+            case 4:
+                permission = Day.Wednesday.hasPenalty(LastNumber);
+                break;
+            case 5:
+                permission = Day.Thursday.hasPenalty(LastNumber);
+                break;
+            case 6:
+                permission = Day.Friday.hasPenalty(LastNumber);
+                break;
+        }
+
         return permission;
     }
 

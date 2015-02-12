@@ -1,5 +1,6 @@
 package co.mobilemakers.picoyplaca;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,6 +37,9 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
+            Intent intentSetPref = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivityForResult(intentSetPref, 0);
             return true;
         }
 

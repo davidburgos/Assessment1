@@ -1,8 +1,13 @@
 package co.mobilemakers.picoyplaca;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
@@ -18,7 +24,9 @@ import java.util.List;
 
 public class mainFragment extends ListFragment {
 
+    private static final int CREATE_REQUEST = 314;
     private DatabaseHelper mDBHelper = null;
+    SharedPreferences mSharedpreferences;
     VehicleAdapter mAdapter;
     List<Vehicle> mEntries;
 
@@ -34,7 +42,16 @@ public class mainFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        TextView textViewCity = (TextView)rootView.findViewById(R.id.text_view_title_city);
+        mSharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Resources res = getResources();
+        String[] cities = res.getStringArray(R.array.listentries);
+        int selectedCity = Integer.parseInt(mSharedpreferences.getString("cities", "0"));
+        String message = String.format(getString(R.string.text_view_format_title)
+                ,cities[selectedCity]);
+        textViewCity.setText(message);
+        return rootView;
     }
 
     @Override
@@ -74,12 +91,14 @@ public class mainFragment extends ListFragment {
 
         switch (item.getItemId()){
             case R.id.action_add_vehicle:
-                Vehicle vehicle =new Vehicle();
+                Intent createVehicle = new Intent(getActivity(), CreateVehicle.class);
+                startActivityForResult(createVehicle, CREATE_REQUEST);
+             /*   Vehicle vehicle =new Vehicle();
                 vehicle.setPlaca("CLA-024");
                 vehicle.setType_vehicle(Vehicle.Type_vehicle.MOTORCYCLE);
                 vehicle.setPermission(false);
                 getDBHelper().saveVehicle(vehicle);
-                mEntries.add(vehicle);
+                mEntries.add(vehicle);*/
                 mAdapter.notifyDataSetChanged();
                 handled = true;
                 break;

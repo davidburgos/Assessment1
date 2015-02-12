@@ -14,9 +14,9 @@
             android:layout_height="match_parent"
             android:id="@+id/image_view_type"
             android:cropToPadding="false"
-            android:adjustViewBounds="true"
-            android:maxWidth="50dp"
-            android:maxHeight="50dp" />
+            android:adjustViewBounds="false"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -97,7 +97,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/text_view_value_message" />
+                android:id="@+id/text_view_value_message"
+                android:gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

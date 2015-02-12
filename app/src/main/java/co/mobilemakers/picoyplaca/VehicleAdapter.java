@@ -46,8 +46,12 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
         ViewHolder viewHolder = (ViewHolder)rowView.getTag();
         viewHolder.textViewType.setText(VehicleList.get(position).getType_vehicle());
         viewHolder.textViewPlaca.setText(VehicleList.get(position).getPlaca());/*
-        viewHolder.textViewHour.setText();TODO: calculate this values to set this views
-        viewHolder.textViewMessage.setText();*/
+        viewHolder.textViewHour.setText();TODO: calculate this values to set this views*/
+        if(VehicleList.get(position).getPermission()) {
+            viewHolder.textViewMessage.setText(getContext().getString(R.string.message_for_warning));
+        }else {
+            viewHolder.textViewMessage.setText(null);
+        }
         viewHolder.ImageViewType.setImageResource(VehicleList.get(position).getImageId());
         viewHolder.ImageViewType.setId(VehicleList.get(position).getId());
     }
