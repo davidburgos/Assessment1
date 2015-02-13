@@ -1,16 +1,11 @@
 package co.mobilemakers.picoyplaca;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.internal.widget.AdapterViewCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.PopupMenu;
@@ -20,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -31,10 +27,15 @@ public class CreateVehicle extends ActionBarActivity {
     public final static String FORM_KEY = "PARCEABLE_ARRAY_LIST";
     public static final String FIELD_PLACA = "_placa";
     public static final String FIELD_TYPE  = "_type";
+    public static final String FIELD_ID    = "_id";
+    public static final String CRUD_TYPE   = "CRUD";
     private EditText mPlaca;
-    private Button mType,mButtonCreate;
-    private int Type;
-    static ArrayList<FormState> FormStateList = new ArrayList<FormState>();
+    private Button mType,mButtonCreate, mButtonDelete;
+    private int Type,_id;
+    Boolean TextReady =false;
+    Boolean TypeReady =false;
+    Matcher matcher;
+    static ArrayList<FormState> FormStateList = new ArrayList<>();
 
     private static class FormState implements Parcelable {
 
@@ -113,6 +114,17 @@ public class CreateVehicle extends ActionBarActivity {
         wireUpViews();
         setUpListeners();
 
+        Intent temp_intent = getIntent();
+        if(temp_intent != null){
+            _id = temp_intent.getIntExtra(FIELD_ID, -1);
+            if(_id > 0){
+                mPlaca.setText(temp_intent.getStringExtra(FIELD_PLACA));
+                setTypeText(temp_intent.getIntExtra(FIELD_TYPE, R.id.menu_car));
+                mButtonCreate.setText(getString(R.string.button_text_title_update));
+                mButtonDelete.setVisibility(View.VISIBLE);
+            }
+        }
+
         if(savedInstanceState != null){
             FormStateList = savedInstanceState.getParcelableArrayList(FORM_KEY);
             FormState formState = FormStateList.get(FormStateList.size()-1);
@@ -137,9 +149,9 @@ public class CreateVehicle extends ActionBarActivity {
         final Pattern pattern = Pattern.compile("[A-Z|a-z]{3}-?[0-9]{3}");
 
         mButtonCreate.setEnabled(false);
+        mButtonDelete.setVisibility(View.GONE);
 
         mPlaca.addTextChangedListener(new TextWatcher() {
-
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -148,8 +160,9 @@ public class CreateVehicle extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Matcher matcher = pattern.matcher(s);
-                mButtonCreate.setEnabled(matcher.matches());
+                matcher = pattern.matcher(s);
+                TextReady = matcher.matches();
+                mButtonCreate.setEnabled(TextReady);
             }
 
             @Override
@@ -158,18 +171,42 @@ public class CreateVehicle extends ActionBarActivity {
             }
         });
 
-
-        Button button = (Button)findViewById(R.id.button_create);
-        button.setOnClickListener(new View.OnClickListener() {
-
+        mButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.putExtra(FIELD_PLACA,mPlaca.getText().toString());
-                intent.putExtra(FIELD_TYPE ,Type);
+                intent.putExtra(FIELD_PLACA, mPlaca.getText().toString());
+                intent.putExtra(FIELD_TYPE, Type);
+                intent.putExtra(FIELD_ID, _id);
+                intent.putExtra(CRUD_TYPE, 0);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
+            }
+        });
 
+        mButtonCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+
+                if(_id > 0) {
+                    intent.putExtra(FIELD_PLACA, mPlaca.getText().toString());
+                    intent.putExtra(FIELD_TYPE, Type);
+                    intent.putExtra(FIELD_ID, _id);
+                    intent.putExtra(CRUD_TYPE, 1);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }else{
+                    if (TypeReady && TextReady) {
+                        intent.putExtra(FIELD_PLACA, mPlaca.getText().toString());
+                        intent.putExtra(FIELD_TYPE, Type);
+                        intent.putExtra(CRUD_TYPE, 1);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    } else
+                        Toast.makeText(getBaseContext(), getString(R.string.select_all_fields_msg), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -177,6 +214,7 @@ public class CreateVehicle extends ActionBarActivity {
     private void wireUpViews() {
         mType = (Button)findViewById(R.id.button_type);
         mButtonCreate = (Button)findViewById(R.id.button_create);
+        mButtonDelete = (Button)findViewById(R.id.button_delete);
         mPlaca = (EditText)findViewById(R.id.edit_text_placa);
     }
 
@@ -187,7 +225,7 @@ public class CreateVehicle extends ActionBarActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Boolean handled = false;
+                Boolean handled;
                 handled = setTypeText(item.getItemId());
                 return handled;
             }
@@ -228,6 +266,7 @@ public class CreateVehicle extends ActionBarActivity {
                 mType.setText(null);
                 handled = false;
         }
+        TypeReady=handled;
         return handled;
     }
 

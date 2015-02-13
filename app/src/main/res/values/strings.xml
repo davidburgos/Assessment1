@@ -25,5 +25,10 @@
     <string name="button_text_title_create">Create</string>
     <string name="text_edit_placa_hint" translatable="false">(AAA-999)</string>
     <string name="text_view_empty_list">Please add a vehicle</string>
+    <string name="button_text_empty_type"><![CDATA[<Select a category>]]></string>
+    <string name="select_all_fields_msg">Please fill both fields</string>
+    <string name="button_text_title_update">Update</string>
+    <string name="button_text_title_delete">Delete</string>
+    <string name="text_title_without_restriction">[Without Restrictions]</string>
 
 </resources>

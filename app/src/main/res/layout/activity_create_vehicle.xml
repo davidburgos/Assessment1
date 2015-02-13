@@ -52,7 +52,9 @@
 
             <Button
                 android:layout_width="0dp"
+                android:gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
+                android:text="@string/button_text_empty_type"
                 android:id="@+id/button_type"
                 android:contentDescription="@string/type_car"
                 android:onClick="showPopup"
@@ -62,11 +64,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|right">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_text_title_delete"
+            android:visibility="invisible"
+            android:id="@+id/button_delete" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,10 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
@@ -28,10 +24,12 @@ import java.util.List;
 public class mainFragment extends ListFragment {
 
     public static final int CREATE_REQUEST = 314;
+    public static final int UPDATE_REQUEST = 217;
     private DatabaseHelper mDBHelper = null;
     SharedPreferences mSharedpreferences;
     VehicleAdapter mAdapter;
     List<Vehicle> mEntries;
+    private int mItemPosition;
 
     public mainFragment() {
     }
@@ -72,7 +70,16 @@ public class mainFragment extends ListFragment {
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Edit and delete vehicle in next version!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), CreateVehicle.class);
+
+                intent.putExtra(CreateVehicle.FIELD_PLACA, mEntries.get(position).getPlaca());
+                intent.putExtra(CreateVehicle.FIELD_TYPE , mEntries.get(position).getType());
+                intent.putExtra(CreateVehicle.FIELD_ID   , mEntries.get(position).getId());
+
+                mItemPosition = position;
+                startActivityForResult(intent, UPDATE_REQUEST);
+
+                //Toast.makeText(getActivity(), "Edit and delete vehicle in next version!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -89,6 +96,31 @@ public class mainFragment extends ListFragment {
                     vehicle.setType_vehicle(data.getIntExtra(CreateVehicle.FIELD_TYPE,1));
                     getDBHelper().saveVehicle(vehicle);
                     mEntries.add(vehicle);
+                    mAdapter.notifyDataSetChanged();
+                    break;
+                case Activity.RESULT_CANCELED:
+                    break;
+            }
+        }
+        if(UPDATE_REQUEST == requestCode){
+            switch (resultCode){
+                case Activity.RESULT_OK:
+                    Vehicle vehicle = getDBHelper().getVehicleById(data.getIntExtra(CreateVehicle.FIELD_ID,-1));
+                    switch (data.getIntExtra(CreateVehicle.CRUD_TYPE, -1)){
+                        case 0:
+                            getDBHelper().deleteVehicle(vehicle);
+                            mEntries.clear();
+                            mEntries.addAll(getDBHelper().retrieveAllVehicles());
+                            break;
+                        case 1:
+                            if(vehicle!=null){
+                                vehicle.setPlaca(data.getStringExtra(CreateVehicle.FIELD_PLACA));
+                                vehicle.setType_vehicle(data.getIntExtra(CreateVehicle.FIELD_TYPE,1));
+                                getDBHelper().updateVehicle(vehicle);
+                                mEntries.set(mItemPosition,vehicle);
+                            }
+                            break;
+                    }
                     mAdapter.notifyDataSetChanged();
                     break;
                 case Activity.RESULT_CANCELED:

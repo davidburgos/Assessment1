@@ -31,6 +31,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return mContactDao;
     }
 
+    public void updateVehicle(Vehicle vehicle){
+        try{
+            if(vehicle!=null){
+                Dao<Vehicle, Integer> dao = getContactDao();
+                dao.update(vehicle);
+            }
+        }catch (SQLException e){
+            Log.e(LOG_TAG, "Can´t insert Contact into database "+DatabaseHelper.DATABASE_NAME, e);
+        }
+    }
+
     public void saveVehicle(Vehicle vehicle){
         try{
             if(vehicle!=null){
@@ -44,7 +55,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     public Vehicle getVehicleById(int Id){
         Vehicle vehicle = null;
-        Dao<Vehicle, Integer> dao = null;
+        Dao<Vehicle, Integer> dao;
         try {
             dao = getContactDao();
             vehicle = dao.queryForId(Id);

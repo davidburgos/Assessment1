@@ -14,10 +14,15 @@
     <string name="text_view_format_title">Ciudad Seleccionada: %s</string>
     <string name="text_view_title_hour">Horario:</string>
     <string name="text_view_title_placa">Placa:</string>
-    <string name="text_view_title_type">Categoria:</string>
+    <string name="text_view_title_type">Categoría:</string>
     <string name="title_activity_create_vehicle">Crear Vehiculo</string>
     <string name="type_car">Carro</string>
     <string name="type_electric_car">Carro eléctrico</string>
     <string name="type_motorcycle">Motocicleta</string>
-    <string name="text_view_empty_list">Please add a vehicle</string>
+    <string name="text_view_empty_list">Porfavor agrega un vehiculo.</string>
+    <string name="button_text_empty_type">[Categoría]</string>
+    <string name="select_all_fields_msg">Porfavor diligencie ambos campos.</string>
+    <string name="button_text_title_update">Actualizar</string>
+    <string name="button_text_title_delete">Borrar</string>
+    <string name="text_title_without_restriction">[Sin Restricciones]</string>
 </resources>
