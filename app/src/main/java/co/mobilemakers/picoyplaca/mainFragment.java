@@ -78,8 +78,6 @@ public class mainFragment extends ListFragment {
 
                 mItemPosition = position;
                 startActivityForResult(intent, UPDATE_REQUEST);
-
-                //Toast.makeText(getActivity(), "Edit and delete vehicle in next version!", Toast.LENGTH_LONG).show();
             }
         });
     }

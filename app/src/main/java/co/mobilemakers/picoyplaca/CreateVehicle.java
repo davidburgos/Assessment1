@@ -240,25 +240,21 @@ public class CreateVehicle extends ActionBarActivity {
             case R.id.menu_car:
                 mType.setText(R.string.type_car);
                 Type = Vehicle.Type_vehicle.CAR.getValue();
-//                Type = R.id.menu_car;
                 handled = true;
                 break;
             case R.id.menu_electric_car:
                 mType.setText(R.string.type_electric_car);
                 Type = Vehicle.Type_vehicle.ELECTRIC.getValue();
-//                Type = R.id.menu_electric_car;
                 handled = true;
                 break;
             case R.id.menu_taxi:
                 mType.setText(R.string.type_taxi);
                 Type = Vehicle.Type_vehicle.TAXI.getValue();
-//                Type = R.id.menu_taxi;
                 handled = true;
                 break;
             case R.id.menu_motorcycle:
                 mType.setText(R.string.type_motorcycle);
                 Type = Vehicle.Type_vehicle.MOTORCYCLE.getValue();
-//                Type = R.id.menu_motorcycle;
                 handled = true;
                 break;
             default:

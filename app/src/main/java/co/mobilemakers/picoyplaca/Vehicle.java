@@ -147,7 +147,7 @@ public class Vehicle {
 
     public String getSchedule(){
 
-        String schedule = String.valueOf(R.string.text_title_without_restriction);
+        String schedule = "";
 
         if(permission) {
             schedule = "(7:00 a.m. - 8:30 a.m.) (5:30 p.m. - 7:00 p.m.)";
