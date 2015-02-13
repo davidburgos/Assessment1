@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Calendar;
+import java.util.Date;
 
 @DatabaseTable
 public class Vehicle {
@@ -13,8 +14,12 @@ public class Vehicle {
     public final static String TYPE       = "type";
     public final static String PERMISSION = "permission";
 
+    private Calendar BEGINING_TIME1,BEGINING_TIME2;
+    private Calendar FINISH_TIME1, FINISH_TIME2;
+
     public enum Type_vehicle{
-        CAR(1), TAXI(2), MOTORCYCLE(3), ELECTRIC(4);
+      //  CAR(1), TAXI(2), MOTORCYCLE(3), ELECTRIC(4);
+        CAR(R.id.menu_car), TAXI(R.id.menu_taxi), MOTORCYCLE(R.id.menu_motorcycle), ELECTRIC(R.id.menu_electric_car);
         private int value;
         private Type_vehicle(int value){
             this.value = value;
@@ -52,6 +57,27 @@ public class Vehicle {
     @DatabaseField(unknownEnumName = "CAR",
                         columnName = TYPE)  private Type_vehicle type_vehicle;
     @DatabaseField(columnName = PERMISSION) private Boolean permission;
+    private int type;
+
+    public Vehicle() {
+
+        BEGINING_TIME1 = Calendar.getInstance();
+        BEGINING_TIME2 = Calendar.getInstance();
+        FINISH_TIME1 = Calendar.getInstance();
+        FINISH_TIME2 = Calendar.getInstance();
+
+        BEGINING_TIME1.add(Calendar.HOUR, 7);
+        BEGINING_TIME1.add(Calendar.MINUTE, 00);
+        FINISH_TIME1.add(Calendar.HOUR, 8);
+        FINISH_TIME1.add(Calendar.MINUTE, 30);
+
+        BEGINING_TIME2.add(Calendar.HOUR, 5);
+        BEGINING_TIME2.add(Calendar.MINUTE, 30);
+        FINISH_TIME2.add(Calendar.HOUR, 7);
+        FINISH_TIME2.add(Calendar.MINUTE, 00);
+
+        permission = false;
+    }
 
     public String getPlaca() {
         return Placa.trim();
@@ -67,17 +93,21 @@ public class Vehicle {
 
     public void setType_vehicle(int type_vehicle) {
         switch (type_vehicle){
-            case 1:
+            case R.id.menu_car:
                 this.type_vehicle = Type_vehicle.CAR;
+                this.type = R.id.menu_car;
                 break;
-            case 2:
+            case R.id.menu_taxi:
                 this.type_vehicle = Type_vehicle.TAXI;
+                this.type = R.id.menu_taxi;
                 break;
-            case 3:
+            case R.id.menu_motorcycle:
                 this.type_vehicle = Type_vehicle.MOTORCYCLE;
+                this.type = R.id.menu_motorcycle;
                 break;
-            case 4:
+            case R.id.menu_electric_car:
                 this.type_vehicle = Type_vehicle.ELECTRIC;
+                this.type = R.id.menu_electric_car;
                 break;
         }
     }
@@ -135,6 +165,16 @@ public class Vehicle {
                 break;
         }
         return result;
+    }
+
+    public String getSchedule(){
+
+        String schedule= "N/A";
+
+        if(permission==true) {
+            schedule = "(7:00 a.m. - 8:30 a.m.) (5:30 p.m. - 7:00 p.m.)";
+        }
+        return schedule;
     }
 
     @Override

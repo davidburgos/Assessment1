@@ -4,4 +4,6 @@
     <color name="color_text_title">#000000</color>
     <color name="color_background_layout">#ffc4c4c4</color>
     <color name="color_background_card">#ffdddddd</color>
+    <color name="color_background_button_up">@color/accent</color>
+    <color name="color_background_button_down">@color/accent_dark</color>
 </resources>

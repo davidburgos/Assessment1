@@ -41,11 +41,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@android:id/list" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@android:id/empty"
-        android:text="@string/text_view_empty_list"
-        android:gravity="center_vertical|center_horizontal"/>
 
 </LinearLayout>

@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +46,14 @@ public class mainFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
         TextView textViewCity = (TextView)rootView.findViewById(R.id.text_view_title_city);
         mSharedpreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Resources res = getResources();
         String[] cities = res.getStringArray(R.array.listentries);
         int selectedCity = Integer.parseInt(mSharedpreferences.getString("cities", "0"));
-        String message = String.format(getString(R.string.text_view_format_title)
-                ,cities[selectedCity]);
+        if(selectedCity>0)selectedCity--;
+        String message = String.format(getString(R.string.text_view_format_title),cities[selectedCity]);
         textViewCity.setText(message);
         return rootView;
     }
@@ -65,10 +68,11 @@ public class mainFragment extends ListFragment {
         mEntries = getDBHelper().retrieveAllVehicles();
         mAdapter = new VehicleAdapter(getActivity(), mEntries);
         setListAdapter(mAdapter);
+
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Edit task in next version!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Edit and delete vehicle in next version!", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Pico y Placa</string>
+    <string name="app_name">Vehicle Restriction</string>
     <string name="action_settings">Settings</string>
-    <string name="text_view_title_placa">Placa:</string>
+    <string name="text_view_title_placa">License Plate:</string>
     <string name="text_view_title_type">Category:</string>
     <string name="text_view_title_hour">Schedule:</string>
     <string name="text_add_value">Add Vehicle</string>
@@ -12,16 +12,18 @@
     <string name="pref_title_cities">City</string>
     <string name="pref_cities_dialog_title">Choose a City</string>
     <string name="category_cities_title">Cities</string>
-    <string name="pref_city_default">Pereira</string>
+    <string name="pref_city_default" translatable="false">Medellin</string>
     <string name="cities_summ">Select the City where your vehicle is.</string>
     <string name="text_view_format_title">Selected City: %s</string>
-    <string name="message_for_warning">Warning you could be punishment</string>
+    <string name="message_for_warning">Warning, you could pay penalties</string>
     <string name="title_activity_create_vehicle">Create Vehicle</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
     <string name="type_car">Car</string>
     <string name="type_motorcycle">Motorcycle</string>
-    <string name="type_taxi">Taxi</string>
+    <string name="type_taxi" translatable="false">Taxi</string>
     <string name="type_electric_car">Electric Car</string>
     <string name="button_text_title_create">Create</string>
+    <string name="text_edit_placa_hint" translatable="false">(AAA-999)</string>
+    <string name="text_view_empty_list">Please add a vehicle</string>
 
 </resources>

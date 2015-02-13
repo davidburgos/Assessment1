@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,13 +46,13 @@ public class VehicleAdapter extends ArrayAdapter<Vehicle> {
     private void displayRepoInRow(int position, View rowView) {
         ViewHolder viewHolder = (ViewHolder)rowView.getTag();
         viewHolder.textViewType.setText(VehicleList.get(position).getType_vehicle());
-        viewHolder.textViewPlaca.setText(VehicleList.get(position).getPlaca());/*
-        viewHolder.textViewHour.setText();TODO: calculate this values to set this views*/
+        viewHolder.textViewPlaca.setText(VehicleList.get(position).getPlaca());
         if(VehicleList.get(position).getPermission()) {
             viewHolder.textViewMessage.setText(getContext().getString(R.string.message_for_warning));
         }else {
             viewHolder.textViewMessage.setText(null);
         }
+        viewHolder.textViewHour.setText(VehicleList.get(position).getSchedule());
         viewHolder.ImageViewType.setImageResource(VehicleList.get(position).getImageId());
         viewHolder.ImageViewType.setId(VehicleList.get(position).getId());
     }
