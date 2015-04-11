@@ -1,4 +1,4 @@
-package co.mobilemakers.picoyplaca;
+package co.example.picoyplaca;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

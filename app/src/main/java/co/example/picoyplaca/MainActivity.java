@@ -1,4 +1,4 @@
-package co.mobilemakers.picoyplaca;
+package co.example.picoyplaca;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
